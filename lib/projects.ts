@@ -23,7 +23,7 @@ export const projects: Project[] = [
     status: "shipped",
     internal: true,
     blurb:
-      "Jeeny's internal configuration platform — replaces manual database commands and Slack permission chains with a proper UI and access-control layer.",
+      "Jeeny's internal configuration platform. Replaces manual database commands and Slack permission chains with a proper UI and access-control layer.",
     description: [
       "Cockpit is Jeeny's internal configuration platform, built to replace a process where ops and logic teams changed live configuration — driver offer distances, banners, surge, landmark offers, ride matching and dispatching rules, and more — by running commands directly against the database, gated by ad-hoc Slack permission requests and Jira tickets.",
       "I was the sole architect, working directly with the CTO and the requirements engineering team: a NestJS backend proxy in front of Jeeny's existing Java microservices (bridged over Axios), a role-based ACL layer so each team only sees and can change the configuration relevant to them, and the React UI on top. It's used daily by roughly 100-150 people across ops and logic teams in Jeeny's Lahore, Karachi, and Jordan offices, and has been in continuous development for over 3 years as new modules get added.",
@@ -58,7 +58,7 @@ export const projects: Project[] = [
       "A donor-facing marketing site for a non-profit running orphan care, medical aid, food distribution, and emergency relief programs — home, about, programs, contact and donate.",
     description: [
       "AspireFoundation is the public site for a non-profit focused on sustainable community initiatives: orphan care, medical aid, food security, and emergency relief. The home page leads with mission and impact, backed by a programs grid, an about page telling the org's story, and contact/donate flows.",
-      "Design leans into a deep teal/coral/cream palette with bold display headings, animated stat counters, and staggered scroll reveals — built to feel dignified and personal rather than like a generic template.",
+      "Uses a deep teal/coral/cream palette, bold display type, animated stat counters, and staggered scroll reveals. The brief was to avoid feeling like a generic nonprofit template.",
     ],
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     liveUrl: "https://aspire-foundation-ten.vercel.app",

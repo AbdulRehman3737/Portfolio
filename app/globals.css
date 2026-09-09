@@ -36,7 +36,7 @@ body {
   --font-sans: var(--font-inter);
   margin: 0;
   overflow-x: hidden;
-  background: var(--bg);
+  background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(232, 177, 74, 0.06), transparent 60%), var(--bg);
   color: var(--text);
   font-family: var(--font-sans), ui-sans-serif, sans-serif;
   font-size: 16px;
@@ -62,36 +62,26 @@ a {
 }
 
 .section-label {
-  font-family: var(--font-display), serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-}
-
-.section-label::before {
-  content: "";
   display: inline-block;
-  width: 1.4rem;
-  height: 2px;
-  margin-right: 0.6rem;
-  background: var(--accent);
-  vertical-align: middle;
-  transform: translateY(-2px);
+  font-family: var(--font-display), serif;
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0.35rem;
 }
 
 .chip {
   background: var(--surface-raised);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 5px;
   color: var(--text-muted);
 }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 10px;
 }
 
 a:focus-visible,
