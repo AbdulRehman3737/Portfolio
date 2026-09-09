@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import { Courier_Prime, Inter, Special_Elite } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "@/components/ui/CustomCursor";
 
-const specialElite = Special_Elite({
-  variable: "--font-special-elite",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["400"],
-});
-
-const courierPrime = Courier_Prime({
-  variable: "--font-courier-prime",
-  subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: "variable",
+  style: ["normal", "italic"],
 });
 
 const inter = Inter({
@@ -22,9 +16,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Abdul Rehman — Case File",
+  title: "Abdul Rehman — Senior Full-Stack Engineer",
   description:
-    "Abdul Rehman — Senior Full-Stack Engineer. Case files: BioGenome and AspireFoundation.",
+    "Abdul Rehman — Senior Full-Stack Engineer with 5+ years building and shipping React + NestJS applications. Portfolio, experience, and projects.",
 };
 
 export default function RootLayout({
@@ -34,12 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${specialElite.variable} ${courierPrime.variable} ${inter.variable} antialiased`}
-      >
-        {children}
-        <CustomCursor />
-      </body>
+      <body className={`${fraunces.variable} ${inter.variable} antialiased`}>{children}</body>
     </html>
   );
 }

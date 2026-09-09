@@ -2,14 +2,16 @@ export const profile = {
   name: "Abdul Rehman",
   title: "Senior Full-Stack Engineer",
   location: "Lahore, Pakistan",
+  phone: "+92 326 4049161",
   email: "abdurehman917@gmail.com",
   github: "https://github.com/AbdulRehman3737",
   githubHandle: "@AbdulRehman3737",
   linkedin: "https://www.linkedin.com/in/abdul-rehman-10876521b/",
   linkedinHandle: "abdul-rehman-10876521b",
   summary:
-    "Senior Full-Stack Engineer with 5+ years building and shipping React + NestJS applications. Owns features end-to-end — from API design and MongoDB schema through to polished frontend and CI/CD. Currently leading platform development at Jeeny, a ride-hailing and mobility platform across Jordan, Saudi Arabia, and Pakistan.",
-  availability: "Available for senior full-time roles and mid-to-senior freelance contracts.",
+    "Senior Full-Stack Engineer with 5+ years building and shipping React + NestJS applications. Owns features end-to-end — from API design and MongoDB schema through to polished frontend and CI/CD. Currently building platform tooling at Jeeny, an international ride-hailing platform operating primarily in Saudi Arabia and Jordan.",
+  availability:
+    "Available immediately, open to remote, for senior full-time roles and mid-to-senior freelance contracts.",
 };
 
 export const skillGroups: { label: string; items: string[] }[] = [
@@ -39,13 +41,14 @@ export const experience: Role[] = [
   {
     company: "Jeeny",
     title: "Senior Software Engineer",
-    context: "Ride-hailing & mobility platform — Jordan, Saudi Arabia, Pakistan",
+    context:
+      "International ride-hailing platform (Android & iOS), primarily Saudi Arabia & Jordan · grew from 362 to 700+ employees during my tenure",
     period: "Apr 2023 — Present",
     highlights: [
-      "Sole architect of a new platform's React frontend and NestJS + MongoDB backend — blank repo to production.",
+      "Sole architect of Cockpit, Jeeny's internal configuration platform — partnered directly with the CTO and requirements engineering team; in continuous development for 3+ years and still growing with new modules.",
       "Built a shared component library adopted across the product; new UI features went from days to hours.",
       "Set up CI/CD and automated testing where none existed; production incidents dropped noticeably.",
-      "Mentored junior engineers and owned technical design discussions for the team.",
+      "Mentored 4 mid-level engineers over 5 months into senior roles; all now work independently across the driver, passenger, and ride squads.",
     ],
   },
   {

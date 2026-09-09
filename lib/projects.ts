@@ -3,23 +3,38 @@ export type ProjectStatus = "shipped" | "in-progress" | "archived";
 export type Project = {
   slug: string;
   name: string;
-  caseNumber: string;
   status: ProjectStatus;
+  internal?: boolean;
   blurb: string;
   description: string[];
   architectureNote?: string;
+  impact?: string;
   stack: string[];
-  liveUrl: string;
-  repoUrl: string;
-  screenshot: string;
+  liveUrl?: string;
+  repoUrl?: string;
+  screenshot?: string;
   color: string;
 };
 
 export const projects: Project[] = [
   {
+    slug: "cockpit",
+    name: "Cockpit",
+    status: "shipped",
+    internal: true,
+    blurb:
+      "Jeeny's internal configuration platform — replaces manual database commands and Slack permission chains with a proper UI and access-control layer.",
+    description: [
+      "Cockpit is Jeeny's internal configuration platform, built to replace a process where ops and logic teams changed live configuration — driver offer distances, banners, surge, landmark offers, ride matching and dispatching rules, and more — by running commands directly against the database, gated by ad-hoc Slack permission requests and Jira tickets.",
+      "I was the sole architect, working directly with the CTO and the requirements engineering team: a NestJS backend proxy in front of Jeeny's existing Java microservices (bridged over Axios), a role-based ACL layer so each team only sees and can change the configuration relevant to them, and the React UI on top. It's used daily by roughly 100-150 people across ops and logic teams in Jeeny's Lahore, Karachi, and Jordan offices, and has been in continuous development for over 3 years as new modules get added.",
+    ],
+    impact: "Config changes: hours-to-days → minutes, for ~100-150 users across 3 offices",
+    stack: ["NestJS", "React", "MongoDB", "Axios", "ACL / RBAC"],
+    color: "#a78bfa",
+  },
+  {
     slug: "biogenome",
     name: "BioGenome",
-    caseNumber: "CASE NO. 014-B",
     status: "shipped",
     blurb:
       "A bioinformatics analytics platform for DNA/RNA/protein sequence analysis and restriction-enzyme mapping, built as a fast, serverless Next.js app.",
@@ -38,7 +53,6 @@ export const projects: Project[] = [
   {
     slug: "aspire-foundation",
     name: "AspireFoundation",
-    caseNumber: "CASE NO. 022-A",
     status: "shipped",
     blurb:
       "A donor-facing marketing site for a non-profit running orphan care, medical aid, food distribution, and emergency relief programs — home, about, programs, contact and donate.",
