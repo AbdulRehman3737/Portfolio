@@ -1,26 +1,200 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --room: #120e0b;
+  --room-soft: #1b1510;
+  --cork: #6b4c33;
+  --cork-dark: #573e29;
+  --paper: #f1e6cd;
+  --paper-soft: #e6d5ab;
+  --folder: #cf9f52;
+  --folder-dark: #b3823a;
+  --ink: #241b12;
+  --ink-soft: #5a4a37;
+  --ink-faint: #8c7c66;
+  --string: #a3241d;
+  --pin: #b3261e;
+  --lamp: #f2b705;
+  --sh-soft: 0 18px 34px -12px rgba(0, 0, 0, 0.65);
+  --sh-tight: 0 3px 6px rgba(0, 0, 0, 0.4);
+  --radius: 3px;
+  --nav-h: 64px;
+  --hover-tint: rgba(36, 27, 18, 0.05);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-room: var(--room);
+  --color-room-soft: var(--room-soft);
+  --color-cork: var(--cork);
+  --color-cork-dark: var(--cork-dark);
+  --color-paper: var(--paper);
+  --color-paper-soft: var(--paper-soft);
+  --color-folder: var(--folder);
+  --color-folder-dark: var(--folder-dark);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-string: var(--string);
+  --color-pin: var(--pin);
+  --color-lamp: var(--lamp);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.custom-cursor-active,
+.custom-cursor-active a,
+.custom-cursor-active button {
+  cursor: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --font-display: var(--font-special-elite);
+  --font-type: var(--font-courier-prime);
+  --font-sans: var(--font-inter);
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--room);
+  color: var(--paper);
+  font-family: var(--font-sans), ui-sans-serif, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(163, 36, 29, 0.35);
+  color: var(--paper);
+}
+
+/* dim room ambience: a single lamp glow from top, vignette at the edges */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 60% 45% at 50% 8%, rgba(242, 183, 5, 0.1), transparent 60%),
+    radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+.font-display {
+  font-family: var(--font-display), monospace;
+}
+
+.font-type {
+  font-family: var(--font-type), monospace;
+}
+
+.stamp-label {
+  font-family: var(--font-display), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------- corkboard surface ---------- */
+.corkboard {
+  position: relative;
+  background-color: var(--cork);
+  background-image: radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.14) 0, transparent 3%),
+    radial-gradient(circle at 70% 60%, rgba(0, 0, 0, 0.12) 0, transparent 3%),
+    radial-gradient(circle at 40% 80%, rgba(0, 0, 0, 0.1) 0, transparent 2.5%),
+    radial-gradient(circle at 85% 20%, rgba(0, 0, 0, 0.1) 0, transparent 2.5%),
+    radial-gradient(circle at 55% 45%, rgba(0, 0, 0, 0.1) 0, transparent 2.5%),
+    radial-gradient(circle at 10% 65%, rgba(0, 0, 0, 0.12) 0, transparent 3%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.12));
+  background-size:
+    140px 140px,
+    160px 160px,
+    120px 120px,
+    150px 150px,
+    130px 130px,
+    170px 170px,
+    100% 100%;
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- index card / pinned document ---------- */
+.index-card {
+  position: relative;
+  background: linear-gradient(165deg, var(--paper), var(--paper-soft));
+  border: 1px solid rgba(36, 27, 18, 0.12);
+  border-radius: var(--radius);
+  box-shadow: var(--sh-soft);
+  color: var(--ink);
+}
+
+.folder-card {
+  position: relative;
+  background: linear-gradient(165deg, var(--folder), var(--folder-dark));
+  border: 1px solid rgba(36, 27, 18, 0.2);
+  border-radius: var(--radius);
+  box-shadow: var(--sh-soft);
+  color: var(--ink);
+}
+.folder-card::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  width: 84px;
+  height: 16px;
+  background: inherit;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid rgba(36, 27, 18, 0.2);
+  border-bottom: none;
+}
+
+/* ---------- push pin ---------- */
+.pin {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  translate: -50% 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #e97a72, var(--pin) 55%, #6e130e 100%);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.55);
+  z-index: 2;
+}
+
+/* ---------- rubber stamp ---------- */
+.rubber-stamp {
+  display: inline-block;
+  font-family: var(--font-display), monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2.5px solid currentColor;
+  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  transform: rotate(-6deg);
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+}
+
+.chip {
+  background: rgba(36, 27, 18, 0.06);
+  border: 1px solid rgba(36, 27, 18, 0.16);
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
