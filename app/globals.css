@@ -1,94 +1,172 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0b0b0d;
-  --surface: #141416;
-  --surface-raised: #1c1c1f;
-  --border: #2a2a2e;
-  --text: #f2f1ed;
-  --text-muted: #9c9ca3;
-  --text-faint: #5e5e66;
-  --accent: #e8b14a;
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --line: rgba(234, 234, 234, 0.14);
+  --line-strong: rgba(234, 234, 234, 0.22);
+  --text: #eaeaea;
+  --text-muted: rgba(234, 234, 234, 0.6);
+  --text-faint: rgba(234, 234, 234, 0.5);
+  --accent: #ff2a2a;
+  --terminal-green: #4af626;
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
-  --color-surface-raised: var(--surface-raised);
-  --color-border: var(--border);
+  --color-border: var(--line);
+  --color-border-strong: var(--line-strong);
   --color-text: var(--text);
   --color-text-muted: var(--text-muted);
   --color-text-faint: var(--text-faint);
   --color-accent: var(--accent);
+  --color-terminal-green: var(--terminal-green);
 }
 
-* {
-  box-sizing: border-box;
-}
+/*
+ * Everything below lives in Tailwind's own `base` layer (declared by
+ * `@import "tailwindcss"` above) rather than as unlayered rules. Unlayered
+ * CSS always beats layered CSS regardless of specificity, so an unlayered
+ * rule here would silently defeat Tailwind's `hover:`/`active:` utilities
+ * on the same element the moment they touch the same property — this bit
+ * us once already with a global `a { color: inherit }` rule. Keeping
+ * everything in `base` means ordinary utility classes (including variants)
+ * layered on top always win as expected.
+ */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-html {
-  overflow-x: hidden;
-  width: 100%;
-}
+  html {
+    overflow-x: hidden;
+    width: 100%;
+  }
 
-body {
-  --font-display: var(--font-fraunces);
-  --font-sans: var(--font-inter);
-  margin: 0;
-  overflow-x: hidden;
-  background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(232, 177, 74, 0.06), transparent 60%), var(--bg);
-  color: var(--text);
-  font-family: var(--font-sans), ui-sans-serif, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
+  body {
+    --font-display: var(--font-telemetry-display);
+    --font-mono: var(--font-telemetry-mono);
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono), monospace;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
 
-::selection {
-  background: rgba(232, 177, 74, 0.35);
-  color: var(--text);
-}
+  ::selection {
+    background: rgba(255, 42, 42, 0.28);
+    color: #fff;
+  }
 
-a {
-  color: inherit;
-}
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--line-strong);
+    border: 2px solid var(--bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent);
+  }
+  html {
+    scrollbar-color: var(--line-strong) var(--bg);
+    scrollbar-width: thin;
+  }
 
-.font-display {
-  font-family: var(--font-display), serif;
-}
+  .font-display {
+    font-family: var(--font-display), sans-serif;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+  }
 
-.font-sans {
-  font-family: var(--font-sans), ui-sans-serif, sans-serif;
-}
+  .panel {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 0;
+  }
 
-.section-label {
-  display: inline-block;
-  font-family: var(--font-display), serif;
-  font-size: 1.85rem;
-  font-weight: 600;
-  color: var(--text);
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 0.35rem;
-}
+  /* Corner ticks — a light blueprint-drafting flourish on framed panels. */
+  .panel::before,
+  .panel::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  .panel::before {
+    top: -1px;
+    left: -1px;
+    border-top: 1px solid var(--accent);
+    border-left: 1px solid var(--accent);
+  }
+  .panel::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 1px solid var(--accent);
+    border-right: 1px solid var(--accent);
+  }
 
-.chip {
-  background: var(--surface-raised);
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  color: var(--text-muted);
-}
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.015) 2px,
+      rgba(255, 255, 255, 0.015) 4px
+    );
+  }
 
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-}
+  .blueprint-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 0%, transparent 70%);
+  }
 
-a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 2px;
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @keyframes blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .cursor-blink {
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

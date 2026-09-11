@@ -1,30 +1,38 @@
+import Bracket from "./Bracket";
+import FadeUp from "./FadeUp";
 import { experience } from "@/lib/profile";
 
 export default function Experience() {
   return (
     <section>
-      <h2 className="section-label mb-6">Experience</h2>
-      <div className="flex flex-col gap-8">
-        {experience.map((role) => (
-          <div key={role.company}>
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h3 className="font-display text-lg text-text sm:text-xl">
-                {role.title} <span className="text-text-muted">· {role.company}</span>
-              </h3>
-              <span className="whitespace-nowrap text-xs uppercase tracking-wide text-text-faint">
+      <Bracket>Experience</Bracket>
+      <div className="flex flex-col">
+        {experience.map((role, i) => (
+          <FadeUp key={role.company} index={i}>
+            <div className="border-t border-border py-7 sm:flex sm:justify-between sm:gap-8">
+              <div className="sm:max-w-xl">
+                <h3 className="font-display text-2xl text-text">{role.title}</h3>
+                <p className="mt-1 text-xs uppercase text-text-muted" style={{ letterSpacing: "0.06em" }}>
+                  {role.company} {"// "}
+                  {role.context}
+                </p>
+                <ul className="mt-4 flex flex-col gap-2">
+                  {role.highlights.map((highlight) => (
+                    <li key={highlight} className="flex gap-3 text-sm leading-relaxed text-text">
+                      <span className="text-accent">&gt;</span>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <span
+                className="mt-3 block whitespace-nowrap text-xs uppercase text-text-faint sm:mt-0"
+                style={{ letterSpacing: "0.06em" }}
+              >
                 {role.period}
               </span>
             </div>
-            <p className="mt-1 text-sm text-text-muted">{role.context}</p>
-            <ul className="mt-3 flex flex-col gap-1.5">
-              {role.highlights.map((highlight) => (
-                <li key={highlight} className="flex gap-2.5 text-sm leading-snug text-text">
-                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          </FadeUp>
         ))}
       </div>
     </section>

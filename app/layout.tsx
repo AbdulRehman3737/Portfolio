@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Archivo_Black, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const archivoBlack = Archivo_Black({
+  variable: "--font-telemetry-display",
   subsets: ["latin"],
-  weight: "variable",
-  style: ["normal", "italic"],
+  weight: "400",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-telemetry-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -28,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fraunces.variable} ${inter.variable} antialiased`}>{children}</body>
+      <body className={`${archivoBlack.variable} ${ibmPlexMono.variable} antialiased`}>{children}</body>
     </html>
   );
 }

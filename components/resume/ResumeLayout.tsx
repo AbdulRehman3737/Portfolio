@@ -8,17 +8,21 @@ export default function ResumeLayout({ children }: { children: ReactNode }) {
   const sections = Children.toArray(children);
 
   return (
-    <div className="mx-auto flex max-w-[1100px] flex-col gap-16 px-6 py-16 lg:px-10 lg:py-20">
-      {sections.map((section, i) => (
-        <motion.div
-          key={i}
-          initial={reduce ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: i * 0.08, ease: "easeOut" }}
-        >
-          {section}
-        </motion.div>
-      ))}
-    </div>
+    <>
+      <div className="blueprint-grid" aria-hidden="true" />
+      <div className="scanlines" aria-hidden="true" />
+      <div className="relative z-[1] mx-auto flex max-w-[1100px] flex-col gap-16 px-6 py-16 lg:px-10 lg:py-20">
+        {sections.map((section, i) => (
+          <motion.div
+            key={i}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: i * 0.08, ease: "easeOut" }}
+          >
+            {section}
+          </motion.div>
+        ))}
+      </div>
+    </>
   );
 }
