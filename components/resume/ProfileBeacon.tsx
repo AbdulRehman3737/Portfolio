@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { profile } from "@/lib/profile";
-import ProfileCard from "../reactbits/ProfileCard";
+import ProfileCard from "@/components/reactbits/ProfileCard";
 
 export default function ProfileBeacon({ reduceMotion, isTouch }: { reduceMotion: boolean; isTouch: boolean }) {
   const downloadResume = () => {

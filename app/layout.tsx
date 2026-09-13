@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
-import { Archivo_Black, IBM_Plex_Mono } from "next/font/google";
+import { Unbounded, Sora, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const archivoBlack = Archivo_Black({
-  variable: "--font-telemetry-display",
+const unbounded = Unbounded({
+  variable: "--font-signal-display",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["700", "800"],
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-telemetry-mono",
+const sora = Sora({
+  variable: "--font-signal-body",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-signal-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
@@ -27,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${archivoBlack.variable} ${ibmPlexMono.variable} antialiased`}>{children}</body>
+      <body className={`${unbounded.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased`}>{children}</body>
     </html>
   );
 }

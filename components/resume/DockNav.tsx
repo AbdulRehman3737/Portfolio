@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { House, Briefcase, SquaresFour, Wrench, GraduationCap, DownloadSimple } from "@phosphor-icons/react";
-import Dock, { type DockItemData } from "../reactbits/Dock";
+import Dock, { type DockItemData } from "@/components/reactbits/Dock";
 
 const SECTIONS = [
   { id: "hero", label: "Home", Icon: House },

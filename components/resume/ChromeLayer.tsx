@@ -3,10 +3,10 @@
 import dynamic from "next/dynamic";
 import { useSyncExternalStore } from "react";
 import { useReducedMotion } from "motion/react";
-import { useIsTouch } from "../lib/useIsTouch";
+import { useIsTouch } from "@/lib/useIsTouch";
 import DockNav from "./DockNav";
 
-const BlobCursor = dynamic(() => import("../reactbits/BlobCursor"), { ssr: false });
+const BlobCursor = dynamic(() => import("@/components/reactbits/BlobCursor"), { ssr: false });
 
 const DESKTOP_QUERY = "(min-width: 900px)";
 

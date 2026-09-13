@@ -1,48 +1,75 @@
-import { Download } from "lucide-react";
-import Portrait from "./Portrait";
-import ContactLinks from "./ContactLinks";
+"use client";
+
+import dynamic from "next/dynamic";
+import { motion, useReducedMotion } from "motion/react";
 import { profile } from "@/lib/profile";
+import { useIsTouch } from "@/lib/useIsTouch";
+import ProfileBeacon from "./ProfileBeacon";
+
+const LightRays = dynamic(() => import("@/components/reactbits/LightRays"), { ssr: false });
 
 export default function Hero() {
+  const reduceMotion = Boolean(useReducedMotion());
+  const isTouch = useIsTouch();
+  const showRays = !reduceMotion;
+
   return (
-    <section className="grid grid-cols-1 gap-8 sm:grid-cols-[240px_1fr] sm:gap-12">
-      <div className="sm:max-w-[240px]">
-        <Portrait />
-      </div>
+    <section id="hero" className="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden scroll-mt-24">
+      {showRays ? (
+        <>
+          <div className="pointer-events-none absolute inset-0">
+            <LightRays
+              raysOrigin="top-center"
+              raysColor="#eab269"
+              raysSpeed={1.1}
+              lightSpread={0.45}
+              rayLength={2.2}
+              pulsating
+              fadeDistance={1.1}
+              saturation={0.75}
+              followMouse
+              mouseInfluence={0.06}
+            />
+          </div>
+          {/* Softens the shader's own fade-out into a smooth dissolve rather than
+              the hard-edged cutoff the raw ray falloff leaves above the card. */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "linear-gradient(to bottom, transparent 0%, transparent 38%, var(--signal-bg) 72%)" }}
+            aria-hidden="true"
+          />
+        </>
+      ) : (
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: "radial-gradient(ellipse 70% 55% at 50% 0%, rgba(234,178,105,0.18), transparent 70%)" }}
+          aria-hidden="true"
+        />
+      )}
 
-      <div>
-        <p className="mb-4 flex items-center gap-2 text-xs uppercase" style={{ letterSpacing: "0.1em" }}>
-          <span className="h-2 w-2 shrink-0 bg-terminal-green" aria-hidden="true" />
-          <span className="text-terminal-green">Status: Open to work</span>
-          <span className="text-text-faint">{"// Remote"}</span>
-        </p>
-        <h1 className="font-display text-5xl text-text sm:text-6xl lg:text-7xl">{profile.name}</h1>
-        <p className="mt-4 text-lg uppercase text-text-muted" style={{ letterSpacing: "0.04em" }}>
-          {profile.title}
-        </p>
-        <p className="mt-5 max-w-xl text-sm leading-relaxed text-text-muted sm:text-base">
-          {profile.summary}
-        </p>
-        <p className="mt-4 text-xs uppercase text-text-faint" style={{ letterSpacing: "0.08em" }}>
-          &gt;&gt;&gt; {profile.location}
-          <span className="cursor-blink ml-1 text-accent" aria-hidden="true">
-            _
-          </span>
-        </p>
+      <div className="relative z-[1] mx-auto grid w-full max-w-5xl grid-cols-1 items-center gap-14 px-6 py-20 sm:grid-cols-[minmax(0,460px)_1fr] sm:gap-16 sm:py-24">
+        <ProfileBeacon reduceMotion={reduceMotion} isTouch={isTouch} />
 
-        <div className="mt-6 flex flex-wrap items-center gap-5 border-t border-border pt-6">
-          <a
-            href="/resume.pdf"
-            download
-            className="inline-flex items-center gap-2 border border-accent px-4 py-2 text-xs uppercase text-accent transition-[color,background-color,transform] active:scale-[0.97] hover:bg-accent hover:text-black"
-            style={{ letterSpacing: "0.08em" }}
-          >
-            <Download size={13} />
-            Download Resume
-          </a>
-          <ContactLinks />
-        </div>
-        <p className="mt-4 text-xs text-text-faint">{profile.availability}</p>
+        <motion.div
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
+          className="text-center sm:text-left"
+        >
+          <p className="signal-mono mb-3 text-xs uppercase tracking-[0.15em]" style={{ color: "var(--signal-text-faint)" }}>
+            {profile.location}
+          </p>
+          <h1 className="signal-display text-6xl sm:text-7xl lg:text-[6rem]">{profile.name}</h1>
+          <p className="signal-display mt-3 text-2xl sm:text-3xl" style={{ color: "var(--signal-amber)" }}>
+            {profile.title}
+          </p>
+          <p className="mx-auto mt-7 max-w-xl text-lg leading-snug sm:mx-0 sm:text-xl" style={{ color: "var(--signal-text)" }}>
+            {profile.summary}
+          </p>
+          <p className="mt-5 text-sm" style={{ color: "var(--signal-text-faint)" }}>
+            {profile.availability}
+          </p>
+        </motion.div>
       </div>
     </section>
   );

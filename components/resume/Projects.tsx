@@ -1,26 +1,23 @@
-import Bracket from "./Bracket";
-import FadeUp from "./FadeUp";
-import ProjectCard from "./ProjectCard";
-import { projects } from "@/lib/projects";
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+import SectionHeading from "./SectionHeading";
+import ProjectChromaGrid from "./ProjectChromaGrid";
 
 export default function Projects() {
-  const [featured, ...rest] = projects;
+  const reduceMotion = Boolean(useReducedMotion());
 
   return (
-    <section>
-      <Bracket>Projects</Bracket>
-      <div className="flex flex-col gap-6">
-        <FadeUp>
-          <ProjectCard project={featured} featured />
-        </FadeUp>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {rest.map((project, i) => (
-            <FadeUp key={project.slug} index={i + 1}>
-              <ProjectCard project={project} />
-            </FadeUp>
-          ))}
-        </div>
-      </div>
+    <section className="py-16 sm:py-24">
+      <SectionHeading id="projects">Projects</SectionHeading>
+      <motion.div
+        initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <ProjectChromaGrid reduceMotion={reduceMotion} />
+      </motion.div>
     </section>
   );
 }

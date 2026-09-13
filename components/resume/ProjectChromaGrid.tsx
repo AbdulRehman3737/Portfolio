@@ -1,10 +1,10 @@
 "use client";
 
 import { projects } from "@/lib/projects";
-import { STATUS_LABEL } from "../lib/adapt";
-import ChromaGrid, { type ChromaItem } from "../reactbits/ChromaGrid";
+import { STATUS_LABEL } from "@/lib/adapt";
+import ChromaGrid, { type ChromaItem } from "@/components/reactbits/ChromaGrid";
 import CockpitConsoleArt from "./CockpitConsoleArt";
-import { useIsTouch } from "../lib/useIsTouch";
+import { useIsTouch } from "@/lib/useIsTouch";
 
 const GRADIENT_ANGLES = [150, 205, 170];
 

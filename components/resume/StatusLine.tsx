@@ -1,6 +1,6 @@
 "use client";
 
-import ShinyText from "../reactbits/ShinyText";
+import ShinyText from "@/components/reactbits/ShinyText";
 
 export default function StatusLine({ text, reduceMotion }: { text: string; reduceMotion: boolean }) {
   return (
