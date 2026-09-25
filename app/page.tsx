@@ -10,8 +10,8 @@ export default function Home() {
     <div className="signal-root">
       <Hero />
       <div className="mx-auto max-w-[1100px] px-6 pb-32 sm:px-10">
-        <Experience />
         <Projects />
+        <Experience />
         <Toolkit />
         <Education />
       </div>

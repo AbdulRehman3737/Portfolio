@@ -126,32 +126,28 @@ export default function Dock({
   reduceMotion = false,
 }: DockProps) {
   const mouseX = useMotionValue(Infinity);
-  const isHovered = useMotionValue(0);
-
-  const maxHeight = useMemo(() => Math.max(dockHeight, magnification + magnification / 2 + 4), [magnification, dockHeight]);
-  const heightRow = useTransform(isHovered, [0, 1], [panelHeight, maxHeight]);
-  const height = useSpring(heightRow, spring);
+  // The outer box is a fixed height (tall enough for magnified icons plus the label)
+  // and ignores the pointer. The panel is pinned to its bottom and icons grow upward.
+  // The earlier version sprang this height on hover while the panel sat centered in
+  // it, which made the whole bar lift about 70px whenever the pointer entered.
+  const outerHeight = useMemo(() => Math.max(dockHeight, magnification + magnification / 2 + 4), [magnification, dockHeight]);
 
   return (
-    <motion.div style={{ height }} className="dock-outer">
+    <div style={{ height: outerHeight }} className="dock-outer">
       <motion.div
-        onMouseMove={({ pageX }) => {
+        onMouseMove={({ clientX }) => {
           if (reduceMotion) return;
-          isHovered.set(1);
-          mouseX.set(pageX);
+          mouseX.set(clientX);
         }}
-        onMouseLeave={() => {
-          isHovered.set(0);
-          mouseX.set(Infinity);
-        }}
+        onMouseLeave={() => mouseX.set(Infinity)}
         className={`dock-panel signal-dock-glass ${className}`}
         style={{ height: panelHeight }}
         role="toolbar"
         aria-label="Section navigation"
       >
-        {items.map((item, index) => (
+        {items.map((item) => (
           <DockItem
-            key={index}
+            key={item.label}
             icon={item.icon}
             label={item.label}
             onClick={item.onClick}
@@ -165,6 +161,6 @@ export default function Dock({
           />
         ))}
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

@@ -1,24 +1,27 @@
 .dock-outer {
   position: fixed;
-  bottom: 1.25rem;
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 40;
   margin: 0;
   display: flex;
   max-width: 100%;
-  align-items: center;
+  /* The panel sits on the bottom edge of this fixed-height box, so it never moves vertically. */
+  align-items: flex-end;
   pointer-events: none;
 }
 
 .dock-panel {
   position: relative;
   display: flex;
-  align-items: center;
+  /* Icons grow upward out of the panel instead of spilling past both edges. */
+  align-items: flex-end;
+  box-sizing: border-box;
   width: fit-content;
   gap: 0.5rem;
   border-radius: 1.25rem;
-  padding: 0 0.5rem;
+  padding: 0 0.5rem 0.5rem;
   pointer-events: auto;
 }
 
@@ -60,16 +63,22 @@
   background-color: var(--signal-surface);
   padding: 0.25rem 0.6rem;
   font-family: var(--font-signal-mono), monospace;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--signal-text);
   transform: translateX(-50%);
 }
 
 @media (max-width: 640px) {
   .dock-outer {
-    bottom: 0.75rem;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
   }
   .dock-label {
     display: none;
   }
+}
+
+/* Keep keyboard focus clear of the fixed dock (WCAG 2.2 "focus not obscured"): when
+   the browser scrolls a focused element into view, it stops above the dock. */
+html:has(.dock-outer) {
+  scroll-padding-bottom: 6.5rem;
 }

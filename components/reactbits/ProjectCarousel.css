@@ -1,0 +1,286 @@
+.project-carousel {
+  position: relative;
+  outline: none;
+}
+
+.project-carousel:focus-visible {
+  outline: 2px solid var(--signal-amber);
+  outline-offset: 6px;
+  border-radius: 1.1rem;
+}
+
+.project-carousel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.project-carousel-viewport {
+  overflow: hidden;
+}
+
+.project-carousel-track {
+  display: flex;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.project-carousel-track:active {
+  cursor: grabbing;
+}
+
+.project-slide {
+  flex-shrink: 0;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid var(--signal-border);
+  background: var(--signal-surface);
+  opacity: 0.35;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-slide.is-active {
+  opacity: 1;
+}
+
+/* The peeking slide is clickable to bring it forward. */
+.project-slide:not(.is-active) {
+  cursor: pointer;
+}
+
+.project-slide:not(.is-active):hover {
+  opacity: 0.55;
+}
+
+.project-slide-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.project-slide-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 0.6rem;
+  border: 1px solid var(--signal-border);
+  background: var(--signal-bg);
+}
+
+.project-slide-img {
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  pointer-events: none;
+}
+
+.project-slide.is-active .project-slide-media:hover .project-slide-img {
+  transform: scale(1.03);
+}
+
+.project-slide-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8% 10%;
+  background: var(--signal-bg);
+}
+
+.project-slide-fallback > * {
+  max-width: 460px;
+  transform: scale(1.15);
+}
+
+.project-slide-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1rem;
+  padding: 0.5rem 1rem 0.5rem 0;
+}
+
+.project-slide-title {
+  font-size: clamp(1.75rem, 3.2vw, 2.6rem);
+  color: var(--signal-text);
+  text-wrap: balance;
+  /* Last resort for a single word wider than the column even after <wbr> breaks. */
+  overflow-wrap: anywhere;
+}
+
+.project-slide-blurb {
+  font-size: 0.975rem;
+  line-height: 1.65;
+  color: var(--signal-text-muted);
+}
+
+.project-slide-impact {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--signal-amber);
+}
+
+.project-slide-impact-icon {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.project-slide-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.project-slide-tags .signal-chip {
+  font-size: 0.75rem;
+  padding: 0.22rem 0.7rem;
+}
+
+.project-slide-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-top: 0.25rem;
+}
+
+.project-slide-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 9999px;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #10130a;
+  background: var(--signal-amber);
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.project-slide-cta:hover {
+  filter: brightness(1.1);
+  transform: translateX(2px);
+}
+
+.project-slide-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--signal-text-muted);
+  transition: color 0.2s ease;
+}
+
+.project-slide-link:hover {
+  color: var(--signal-text);
+}
+
+.project-slide-footnote {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--signal-text-faint);
+}
+
+.project-carousel-controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 1.75rem;
+}
+
+.project-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.project-carousel-dot {
+  position: relative;
+  height: 0.5rem;
+  width: 0.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  /* Inactive dots are controls, so they need 3:1 against the page (the border token is ~1.6:1). */
+  background: var(--signal-text-faint);
+  cursor: pointer;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
+}
+
+/* The visible dot is 8px; the hit area is a 44px-tall target. */
+.project-carousel-dot::after {
+  content: "";
+  position: absolute;
+  inset: -1.1rem -0.4rem;
+}
+
+.project-carousel-dot:hover {
+  background: var(--signal-text-muted);
+}
+
+.project-carousel-dot.is-active {
+  width: 1.75rem;
+  background: var(--signal-amber);
+}
+
+.project-carousel-arrows {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.5rem;
+}
+
+.project-carousel-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.75rem;
+  width: 2.75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--signal-border-strong);
+  background: transparent;
+  color: var(--signal-text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease-out;
+}
+
+.project-carousel-arrow:hover {
+  color: var(--signal-amber);
+  border-color: rgba(var(--signal-amber-rgb), 0.5);
+  background: rgba(var(--signal-amber-rgb), 0.08);
+}
+
+.project-carousel-arrow:active,
+.project-slide-cta:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 767px) {
+  .project-slide {
+    padding: 0.625rem;
+    border-radius: 0.875rem;
+  }
+
+  .project-slide-inner {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: 1.25rem;
+  }
+
+  .project-slide-body {
+    padding: 0 0.5rem 0.75rem;
+  }
+}
